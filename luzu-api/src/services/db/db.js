@@ -1,5 +1,5 @@
-const {initializeApp} = require('firebase/app')
-const {getFirestore} = require('firebase/firestore/lite');
+const { initializeApp } = require('firebase/app')
+const { getFirestore, getDoc, doc, setDoc } = require('firebase/firestore/lite');
 
 const firebaseConfig = {
   projectId: 'luzu-db',
@@ -12,6 +12,16 @@ const app = initializeApp(firebaseConfig)
 
 const db = getFirestore(app)
 
+const createDocument = async(db, key, data) => await setDoc(doc(db, "luzu", key), data);
+
+const getDocumenById = async(db, key) => {
+  const docSnap = await getDoc(doc(db, "luzu", key));
+
+  return docSnap.exists() ? docSnap.data() : null;
+}
+
 module.exports = {
-  db
+  db,
+  createDocument,
+  getDocumenById,
 }
