@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {MoralisProvider} from 'react-moralis'
 
-axios.defaults.baseURL = 'https://luzu.herokuapp.com/'
+axios.defaults.baseURL = 'https://luzu-api.herokuapp.com/'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
