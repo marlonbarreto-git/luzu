@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 
 const routes = require("./src/routes");
 
-const port = 3001
+const port = process.env.PORT || 3001
 const server = express()
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
