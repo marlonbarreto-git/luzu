@@ -14,22 +14,39 @@ const createTransaction = async (req, res) => {
 };
 
 const processTransaction = async (req, res) => {
-    const { transactionId, userId } = req.body;
-    try {
-      const { status } = await Service.processTransaction(transactionId, userId);
-      res.json({
-        status,
-        message: `Transaction ${status}`,
-      });
-    } catch (err) {
-      res.json({
-        status: "error",
-        message: err.message,
-      });
-    }
-  };
+  const { transactionId, userId } = req.body;
+  try {
+    const { status } = await Service.processTransaction(transactionId, userId);
+    res.json({
+      status,
+      message: `Transaction ${status}`,
+    });
+  } catch (err) {
+    res.json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
+
+const rejectTransaction = async (req, res) => {
+  const { transactionId } = req.body;
+  try {
+    await Service.rejectTransaction(transactionId);
+    res.json({
+      status: 'rejected',
+      message: 'Transaction rejected',
+    });
+  } catch (err) {
+    res.json({
+      status: "error",
+      message: err.message,
+    });
+  }
+}
 
 module.exports = {
     createTransaction,
     processTransaction,
+    rejectTransaction,
 };

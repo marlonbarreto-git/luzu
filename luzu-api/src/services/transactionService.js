@@ -46,6 +46,11 @@ class Service {
         await createDocument(db, transactionId, transactionInfo);
         return transactionInfo;
     }
+
+    async rejectTransaction(transactionId) {
+        const transactionInfo = await getDocumenById(db, transactionId);
+        await createDocument(db, transactionId, { ...transactionInfo, status: 'rejected' });
+    }
 }
 
 module.exports = new Service();
