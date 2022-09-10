@@ -1,27 +1,17 @@
-const {Sequelize, Op} = require('sequelize')
+const {initializeApp} = require('firebase/app')
+const {getFirestore} = require('firebase/firestore/lite');
 
-let sequelize = new Sequelize({
-  database: DB_NAME,
-  dialect: "postgres",
-  host: DB_HOST,
-  port: 5432,
-  username: DB_USER,
-  password: DB_PASSWORD,
-  pool: {
-    max: 3,
-    min: 1,
-    idle: 10000,
-  },
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-    keepAlive: true,
-  },
-  ssl: true,
-})
+const firebaseConfig = {
+  projectId: 'luzu-db',
+  authDomain: "luzu-db.firebaseapp.com",
+  databaseURL: "https://luzu-db.firebaseio.com",
+  storageBucket: "luzu-db.appspot.com",
+}
 
-module.export = {
-  conn: sequelize
+const app = initializeApp(firebaseConfig)
+
+const db = getFirestore(app)
+
+module.exports = {
+  db
 }
